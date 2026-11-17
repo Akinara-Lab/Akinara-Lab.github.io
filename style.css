@@ -26,7 +26,7 @@ html, body {
 }
 
 a { color: inherit; text-decoration: none; }
-a:focus-visible, input:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
+a:focus-visible, input:focus-visible, button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
 
 #scene {
   position: fixed;
@@ -40,6 +40,7 @@ a:focus-visible, input:focus-visible { outline: 2px solid var(--cyan); outline-o
 #scene:active { cursor: grabbing; }
 #scene { opacity: 0; transition: opacity 1.4s ease; }
 .still #scene { transition: none; }
+.still .panel { animation: none; }
 .ready #scene { opacity: 1; }
 
 header {
@@ -77,6 +78,49 @@ nav a:hover { color: var(--cyan); border-color: var(--cyan); }
   backdrop-filter: blur(14px);
 }
 .panel p { margin: 0; }
+.panel { animation: panel-open 0.35s ease; }
+
+/* the panel folds down to a small chip, so the scene can be watched undisturbed */
+.toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+.toggle:hover { color: var(--cyan); background: rgba(255, 255, 255, 0.06); }
+.toggle svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.3s ease; }
+
+.panel.collapsed {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  padding: 4px 4px 4px 16px;
+  cursor: pointer;
+  animation: panel-close 0.35s ease;
+}
+.panel.collapsed .stage, .panel.collapsed .body { display: none; }
+.panel.collapsed .count { margin-top: 0 !important; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
+.panel.collapsed .count strong { font-size: 17px; letter-spacing: 0; }
+.panel.collapsed .toggle { position: static; order: 2; }
+.panel.collapsed .toggle svg { transform: rotate(180deg); }
+.calm .hint { opacity: 0; }
+
+@keyframes panel-open { from { opacity: 0; transform: translateY(8px); } }
+@keyframes panel-close { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) {
+  .panel, .panel.collapsed { animation: none; }
+}
 
 .stage { display: flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; }
 #stage-name { color: var(--cyan); }

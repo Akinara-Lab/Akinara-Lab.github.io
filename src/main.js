@@ -100,6 +100,58 @@ function start() {
     camera.position.set(0.72, 0.11, 0.69).normalize().multiplyScalar(dist).add(controls.target);
   }
 
+  // --- info panel ------------------------------------------------------------
+  // The panel folds down to a small chip so the scene can be watched
+  // undisturbed. The choice is remembered for the next visit.
+  const panel = $('panel');
+  const toggle = $('panel-toggle');
+  let panelOpen = true;
+  let panelShift = 1; // 1 = scene moved aside for the open panel, 0 = centred
+  function setPanel(open, remember) {
+    panelOpen = open;
+    panel.classList.toggle('collapsed', !open);
+    document.body.classList.toggle('calm', !open);
+    const label = open ? 'Hide details' : 'Show details';
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', label);
+    toggle.title = label;
+    if (!remember) return;
+    try {
+      localStorage.setItem('panel', open ? 'open' : 'closed');
+    } catch {
+      /* private mode: the choice just is not remembered */
+    }
+  }
+  toggle.addEventListener('click', (event) => {
+    event.stopPropagation();
+    setPanel(!panelOpen, true);
+  });
+  panel.addEventListener('click', () => {
+    if (!panelOpen) setPanel(true, true);
+  });
+  // ?calm opens the page with the panel already folded
+  let startFolded = query.has('calm');
+  try {
+    if (!query.has('still') && localStorage.getItem('panel') === 'closed') startFolded = true;
+  } catch {
+    /* storage blocked: start with the panel open */
+  }
+  if (startFolded) {
+    setPanel(false, false);
+    panelShift = 0;
+  }
+
+  // on wide screens, move the scene a little to the right of the info panel
+  // and on phones a little above it; with the panel folded it sits centred
+  function applyViewOffset() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    if (w > 900) camera.setViewOffset(w, h, -w * 0.05 * panelShift, 0, w, h);
+    else if (h > w) camera.setViewOffset(w, h, 0, h * 0.07 * panelShift, w, h);
+    else camera.clearViewOffset();
+    camera.updateProjectionMatrix();
+  }
+
   function resize() {
     const w = window.innerWidth;
     const h = window.innerHeight;
@@ -109,12 +161,7 @@ function start() {
     composer.setPixelRatio(pr);
     composer.setSize(w, h);
     camera.aspect = w / h;
-    // on wide screens, move the scene a little to the right of the info panel
-    // and on phones a little above it
-    if (w > 900) camera.setViewOffset(w, h, -w * 0.05, 0, w, h);
-    else if (h > w) camera.setViewOffset(w, h, 0, h * 0.07, w, h);
-    else camera.clearViewOffset();
-    camera.updateProjectionMatrix();
+    applyViewOffset();
     scenery.setPixelSize(h * pr * 0.11);
   }
   window.addEventListener('resize', resize);
@@ -239,6 +286,14 @@ function start() {
         if (!touched && !reducedMotion) controls.autoRotate = true;
       }
       applyAge();
+    }
+
+    // glide the scene to the centre when the panel folds, and back
+    const shiftGoal = panelOpen ? 1 : 0;
+    if (panelShift !== shiftGoal) {
+      panelShift += (shiftGoal - panelShift) * (reducedMotion ? 1 : 1 - Math.exp(-dt * 3));
+      if (Math.abs(shiftGoal - panelShift) < 0.002) panelShift = shiftGoal;
+      applyViewOffset();
     }
 
     // keep the crown in frame as the tree gets taller

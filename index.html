@@ -31,16 +31,21 @@
     </nav>
   </header>
 
-  <main class="panel">
+  <main class="panel" id="panel">
+    <button id="panel-toggle" class="toggle" type="button" aria-expanded="true" aria-controls="panel-body" aria-label="Hide details" title="Hide details">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 6 8 10.5 12.5 6"/></svg>
+    </button>
     <p class="stage"><span id="stage-name">seed</span><span id="stage-text">tane</span></p>
     <p class="count"><strong id="commits">0</strong> commits</p>
-    <p class="sub"><strong id="blossoms">0</strong> blossoms open. Every commit we push makes the tree grow.</p>
-    <label class="rewind">
-      <span>Rewind</span>
-      <input id="rewind" type="range" min="0" max="1" value="1" step="1" aria-label="Rewind the tree to an earlier commit">
-      <span id="rewind-label">today</span>
-    </label>
-    <div id="repos" class="repos"></div>
+    <div id="panel-body" class="body">
+      <p class="sub"><strong id="blossoms">0</strong> blossoms open. Every commit we push makes the tree grow.</p>
+      <label class="rewind">
+        <span>Rewind</span>
+        <input id="rewind" type="range" min="0" max="1" value="1" step="1" aria-label="Rewind the tree to an earlier commit">
+        <span id="rewind-label">today</span>
+      </label>
+      <div id="repos" class="repos"></div>
+    </div>
   </main>
 
   <p class="hint">drag to look around · scroll to zoom</p>

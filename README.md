@@ -22,7 +22,10 @@ roughly 110 commits), grown tree (about 540), old tree (about 2,700) and sacred
 tree.
 
 The slider rewinds the tree to any earlier commit count.
-`?commits=5000` previews any size, `?still` skips the animation.
+The arrow in the corner of the panel folds it down to a small chip, so the scene
+can be watched undisturbed; the choice is remembered in the browser.
+`?commits=5000` previews any size, `?still` skips the animation, `?calm` opens
+the page with the panel already folded.
 
 ## Where the number comes from
 
