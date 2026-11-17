@@ -10,7 +10,6 @@
   --line: rgba(255, 255, 255, 0.14);
   --glass: rgba(18, 18, 18, 0.72);
   --sans: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
   --pad: clamp(16px, 3vw, 36px);
 }
 
@@ -64,28 +63,6 @@ header > * { pointer-events: auto; }
 nav { display: flex; gap: clamp(14px, 2vw, 28px); font-size: 13px; letter-spacing: 0.06em; }
 nav a { color: var(--muted); padding: 6px 0; border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s; }
 nav a:hover { color: var(--cyan); border-color: var(--cyan); }
-
-.title {
-  position: fixed;
-  right: var(--pad);
-  top: 50%;
-  transform: translateY(-50%);
-  writing-mode: vertical-rl;
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-}
-.title span { display: block; }
-.name {
-  font-family: var(--serif);
-  font-size: clamp(34px, min(5vw, 9vh), 72px);
-  line-height: 1.1;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text);
-  text-shadow: 0 0 34px rgba(32, 236, 243, 0.6), 0 0 6px rgba(32, 236, 243, 0.45);
-}
-.reading { margin-right: 12px; font-size: 11px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--muted); }
 
 .panel {
   position: fixed;
@@ -145,9 +122,6 @@ input[type='range']::-moz-range-thumb { width: 14px; height: 14px; border-radius
 .no-webgl .panel, .no-webgl .hint, .no-webgl #scene { display: none; }
 
 @media (max-width: 640px) {
-  .title { top: 76px; transform: none; }
-  .name { font-size: 30px; }
-  .title .reading { display: none; }
   .hint { display: none; }
   .panel { padding: 14px 16px 12px; }
   .sub { font-size: 12px; }
