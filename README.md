@@ -1,4 +1,4 @@
-# 青桜 · aozakura
+# Aozakura · the blue cherry
 
 The landing page of [Akinara-Lab](https://github.com/Akinara-Lab): a blue cherry
 tree on a floating island, rendered with three.js. **The tree grows with every
@@ -17,9 +17,9 @@ age = c^0.6 / (c^0.6 + 17)        c = commits across all repositories
 
 Early commits make a visible difference, later ones add twigs and blossoms, and
 the tree never quite finishes. Blossoms sit on young wood only, so they move
-outwards as the branches thicken. The stages are 種 seed, 芽 sprout, 若木 young
-tree (up to roughly 110 commits), 成木 grown tree (about 540), 古木 old tree
-(about 2,700) and 神木 sacred tree.
+outwards as the branches thicken. The stages are seed, sprout, young tree (up to
+roughly 110 commits), grown tree (about 540), old tree (about 2,700) and sacred
+tree.
 
 The slider rewinds the tree to any earlier commit count.
 `?commits=5000` previews any size, `?still` skips the animation.

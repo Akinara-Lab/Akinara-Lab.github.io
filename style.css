@@ -10,7 +10,7 @@
   --line: rgba(255, 255, 255, 0.14);
   --glass: rgba(18, 18, 18, 0.72);
   --sans: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --mincho: 'Yu Mincho', 'YuMincho', 'Hiragino Mincho ProN', 'Noto Serif JP', 'Songti SC', serif;
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
   --pad: clamp(16px, 3vw, 36px);
 }
 
@@ -76,11 +76,12 @@ nav a:hover { color: var(--cyan); border-color: var(--cyan); }
   user-select: none;
 }
 .title span { display: block; }
-.kanji {
-  font-family: var(--mincho);
-  font-size: clamp(44px, 7vw, 96px);
+.name {
+  font-family: var(--serif);
+  font-size: clamp(34px, min(5vw, 9vh), 72px);
   line-height: 1.1;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: var(--text);
   text-shadow: 0 0 34px rgba(32, 236, 243, 0.6), 0 0 6px rgba(32, 236, 243, 0.45);
 }
@@ -101,7 +102,7 @@ nav a:hover { color: var(--cyan); border-color: var(--cyan); }
 .panel p { margin: 0; }
 
 .stage { display: flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; }
-#stage-kanji { font-family: var(--mincho); font-size: 20px; letter-spacing: 0.1em; color: var(--cyan); }
+#stage-name { color: var(--cyan); }
 
 .count { margin-top: 8px !important; font-size: 15px; color: var(--muted); letter-spacing: 0.04em; }
 .count strong { font-size: clamp(40px, 6vw, 56px); font-weight: 600; color: #fff; letter-spacing: -0.02em; margin-right: 6px; font-variant-numeric: tabular-nums; }
@@ -145,7 +146,7 @@ input[type='range']::-moz-range-thumb { width: 14px; height: 14px; border-radius
 
 @media (max-width: 640px) {
   .title { top: 76px; transform: none; }
-  .kanji { font-size: 40px; }
+  .name { font-size: 30px; }
   .title .reading { display: none; }
   .hint { display: none; }
   .panel { padding: 14px 16px 12px; }

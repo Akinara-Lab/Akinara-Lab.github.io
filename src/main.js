@@ -20,12 +20,12 @@ const ageOf = (commits) => {
 const commitsOf = (age) => Math.pow((K * age) / (1 - age), 1 / P);
 
 const STAGES = [
-  [0.03, '種', 'tane', 'seed'],
-  [0.16, '芽', 'me', 'sprout'],
-  [0.5, '若木', 'wakagi', 'young tree'],
-  [0.72, '成木', 'seiboku', 'grown tree'],
-  [0.87, '古木', 'koboku', 'old tree'],
-  [2, '神木', 'shinboku', 'sacred tree'],
+  [0.03, 'tane', 'seed'],
+  [0.16, 'me', 'sprout'],
+  [0.5, 'wakagi', 'young tree'],
+  [0.72, 'seiboku', 'grown tree'],
+  [0.87, 'koboku', 'old tree'],
+  [2, 'shinboku', 'sacred tree'],
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -145,9 +145,9 @@ function start() {
     const stage = STAGES.findIndex((s) => age < s[0]);
     if (stage !== shownStage) {
       shownStage = stage;
-      const [, kanji, reading, meaning] = STAGES[stage];
-      $('stage-kanji').textContent = kanji;
-      $('stage-text').textContent = `${reading} · ${meaning}`;
+      const [, reading, meaning] = STAGES[stage];
+      $('stage-name').textContent = meaning;
+      $('stage-text').textContent = reading;
     }
   }
 
