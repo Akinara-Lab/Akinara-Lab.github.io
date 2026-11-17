@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AKINARA Lab · 青桜</title>
+  <meta name="description" content="A blue cherry tree that grows with every commit we push. AKINARA builds custom AI tools for the construction industry.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="AKINARA Lab · 青桜">
+  <meta property="og:description" content="A blue cherry tree that grows with every commit we push.">
+  <meta property="og:image" content="https://akinara-lab.github.io/preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/build/three.module.js", "three/addons/": "./vendor/three/examples/jsm/" } }
+  </script>
+</head>
+<body>
+  <canvas id="scene" aria-label="A blue cherry tree on a floating island with a torii gate. Drag to look around."></canvas>
+
+  <header>
+    <a class="brand" href="https://akinara.de" aria-label="AKINARA Lab">
+      <img class="mark" src="assets/akinara-mark.svg" alt="" width="68" height="66">
+      <svg class="wordmark" viewBox="0 0 220 28" role="img" aria-hidden="true"><path transform="translate(111.63 27.492)" d="M-91.907-27.439q.158.035,6.943,15.205L-79.426.035h-5.537a64.209,64.209,0,0,0-3.023-6.645h-15.082q-.211,0-3.023,6.645h-5.537l12.375-27.475Zm-4.131,5.045q0,.141-4.816,10.758H-90.2q-4.553-10.02-4.816-10.758Zm22.166-5.045h5.027v11.285h4.535l11.971-11.285H-45.2q-.984,1.107-12.463,11.883a16.512,16.512,0,0,0-1.916,1.916Q-46.046-.914-45.2.035h-7.137L-64.221-11.127h-4.623V.035h-5.027Zm34.4-.018h5.027V.018h-5.027Zm15.961-.035h4.535q.193.105,13.781,14.59Q-.571-7.963-.36-7.875V-27.492H4.667V-.018H.132q-.193-.105-13.781-14.59-4.623-4.939-4.834-5.027V-.018h-5.027Zm53.49.053q.158.035,6.943,15.205L42.46.035H36.923A64.209,64.209,0,0,0,33.9-6.609H18.817q-.211,0-3.023,6.645H10.257L22.632-27.439Zm-4.131,5.045q0,.141-4.816,10.758H31.684q-4.553-10.02-4.816-10.758Zm22.307-5.08h12.8A11.518,11.518,0,0,1,68.9-24.662a10.069,10.069,0,0,1,3.41,7.559q0,5.555-5.73,8.947a4.773,4.773,0,0,0-1.406.615q0,.088,5.643,7.541H64.661q-.492-.4-5.027-6.539-.3-.4-.4-.4H53.2V0H48.155ZM53.2-22.447v10.477h7.541q4.9,0,6.346-3.832a8.009,8.009,0,0,0,.193-1.512q0-2.883-3.217-4.518a6.381,6.381,0,0,0-3.023-.615Zm42.328-4.992q.158.035,6.943,15.205L108.008.035h-5.537a64.209,64.209,0,0,0-3.023-6.645H84.366q-.211,0-3.023,6.645H75.805L88.18-27.439ZM91.4-22.395q0,.141-4.816,10.758H97.233q-4.553-10.02-4.816-10.758Z"/></svg>
+      <span>Lab</span>
+    </a>
+    <nav>
+      <a href="https://github.com/Akinara-Lab">GitHub</a>
+      <a href="https://akinara.de">akinara.de</a>
+    </nav>
+  </header>
+
+  <aside class="title" aria-hidden="true">
+    <span class="kanji">青桜</span>
+    <span class="reading">aozakura · the blue cherry</span>
+  </aside>
+
+  <main class="panel">
+    <p class="stage"><span id="stage-kanji">種</span><span id="stage-text">tane · seed</span></p>
+    <p class="count"><strong id="commits">0</strong> commits</p>
+    <p class="sub"><strong id="blossoms">0</strong> blossoms open. Every commit we push makes the tree grow.</p>
+    <label class="rewind">
+      <span>Rewind</span>
+      <input id="rewind" type="range" min="0" max="1" value="1" step="1" aria-label="Rewind the tree to an earlier commit">
+      <span id="rewind-label">today</span>
+    </label>
+    <div id="repos" class="repos"></div>
+  </main>
+
+  <p class="hint">drag to look around · scroll to zoom</p>
+
+  <div class="fallback">
+    <p>This page shows a 3D cherry tree that grows with our commits, but your browser could not start WebGL.</p>
+    <p><a href="https://github.com/Akinara-Lab">github.com/Akinara-Lab</a> · <a href="https://akinara.de">akinara.de</a></p>
+  </div>
+  <noscript><div class="fallback show"><p>AKINARA Lab. This page needs JavaScript for its 3D scene.</p><p><a href="https://github.com/Akinara-Lab">github.com/Akinara-Lab</a> · <a href="https://akinara.de">akinara.de</a></p></div></noscript>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+name: Deploy page
+
+# Counts the commits of the organisation, then publishes the page.
+# Runs on every push, a few times a day, and on demand.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Count commits
+        run: node scripts/build-stats.mjs
+        env:
+          # Optional secret: a read-only token that can also see private
+          # repositories. Without it only public repositories are counted.
+          GITHUB_TOKEN: ${{ secrets.ORG_STATS_TOKEN || github.token }}
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v5

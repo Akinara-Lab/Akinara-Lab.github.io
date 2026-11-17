@@ -1,0 +1,156 @@
+:root {
+  /* the palette of akinara.de */
+  --bg: #000;
+  --surface: #121212;
+  --edge: #313131;
+  --cyan: #20ecf3;
+  --teal: #24888c;
+  --text: #fff;
+  --muted: #b8b8b8;
+  --line: rgba(255, 255, 255, 0.14);
+  --glass: rgba(18, 18, 18, 0.72);
+  --sans: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mincho: 'Yu Mincho', 'YuMincho', 'Hiragino Mincho ProN', 'Noto Serif JP', 'Songti SC', serif;
+  --pad: clamp(16px, 3vw, 36px);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible, input:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 4px; }
+
+#scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+#scene:active { cursor: grabbing; }
+#scene { opacity: 0; transition: opacity 1.4s ease; }
+.still #scene { transition: none; }
+.ready #scene { opacity: 1; }
+
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: var(--pad);
+  padding-top: max(var(--pad), env(safe-area-inset-top));
+  pointer-events: none;
+}
+header > * { pointer-events: auto; }
+
+.brand { display: flex; align-items: center; gap: clamp(9px, 1.1vw, 13px); }
+.brand .mark { height: clamp(26px, 3.2vw, 36px); width: auto; filter: drop-shadow(0 0 12px rgba(32, 236, 243, 0.4)); }
+.brand .wordmark { height: clamp(15px, 1.9vw, 21px); fill: var(--text); }
+.brand span { align-self: flex-end; font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--muted); line-height: 1; padding-bottom: clamp(6px, 0.8vw, 9px); }
+
+nav { display: flex; gap: clamp(14px, 2vw, 28px); font-size: 13px; letter-spacing: 0.06em; }
+nav a { color: var(--muted); padding: 6px 0; border-bottom: 1px solid transparent; transition: color 0.2s, border-color 0.2s; }
+nav a:hover { color: var(--cyan); border-color: var(--cyan); }
+
+.title {
+  position: fixed;
+  right: var(--pad);
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.title span { display: block; }
+.kanji {
+  font-family: var(--mincho);
+  font-size: clamp(44px, 7vw, 96px);
+  line-height: 1.1;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  text-shadow: 0 0 34px rgba(32, 236, 243, 0.6), 0 0 6px rgba(32, 236, 243, 0.45);
+}
+.reading { margin-right: 12px; font-size: 11px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--muted); }
+
+.panel {
+  position: fixed;
+  left: var(--pad);
+  bottom: max(var(--pad), env(safe-area-inset-bottom));
+  width: min(340px, calc(100vw - 2 * var(--pad)));
+  padding: 18px 20px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+.panel p { margin: 0; }
+
+.stage { display: flex; align-items: baseline; gap: 10px; color: var(--muted); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; }
+#stage-kanji { font-family: var(--mincho); font-size: 20px; letter-spacing: 0.1em; color: var(--cyan); }
+
+.count { margin-top: 8px !important; font-size: 15px; color: var(--muted); letter-spacing: 0.04em; }
+.count strong { font-size: clamp(40px, 6vw, 56px); font-weight: 600; color: #fff; letter-spacing: -0.02em; margin-right: 6px; font-variant-numeric: tabular-nums; }
+
+.sub { margin-top: 4px !important; font-size: 13px; line-height: 1.5; color: var(--muted); }
+.sub strong { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.rewind { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; margin-top: 14px; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+#rewind-label { min-width: 5.5em; text-align: right; font-variant-numeric: tabular-nums; }
+
+input[type='range'] { -webkit-appearance: none; appearance: none; width: 100%; height: 18px; margin: 0; background: transparent; cursor: pointer; }
+input[type='range']::-webkit-slider-runnable-track { height: 2px; background: linear-gradient(90deg, var(--cyan), var(--teal) 60%, var(--edge)); border-radius: 2px; }
+input[type='range']::-moz-range-track { height: 2px; background: linear-gradient(90deg, var(--cyan), var(--teal) 60%, var(--edge)); border-radius: 2px; }
+input[type='range']::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; margin-top: -6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px rgba(32, 236, 243, 0.9); border: 0; }
+input[type='range']::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px rgba(32, 236, 243, 0.9); border: 0; }
+
+.repos { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.repos:empty { display: none; }
+.repos a { display: inline-flex; gap: 8px; align-items: baseline; padding: 5px 10px; border: 1px solid var(--edge); border-radius: 6px; font-size: 12px; color: var(--text); transition: border-color 0.2s, color 0.2s; }
+.repos a:hover { border-color: var(--cyan); color: var(--cyan); }
+.repos span { color: var(--cyan); font-variant-numeric: tabular-nums; }
+
+.hint {
+  position: fixed;
+  right: var(--pad);
+  bottom: max(var(--pad), env(safe-area-inset-bottom));
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  pointer-events: none;
+  transition: opacity 0.8s;
+}
+.touched .hint { opacity: 0; }
+
+.fallback { display: none; position: fixed; inset: 0; place-content: center; padding: 32px; text-align: center; line-height: 1.6; background: var(--bg); }
+.fallback a { color: var(--cyan); }
+.fallback.show, .no-webgl .fallback { display: grid; }
+.no-webgl .panel, .no-webgl .hint, .no-webgl #scene { display: none; }
+
+@media (max-width: 640px) {
+  .title { top: 76px; transform: none; }
+  .kanji { font-size: 40px; }
+  .title .reading { display: none; }
+  .hint { display: none; }
+  .panel { padding: 14px 16px 12px; }
+  .sub { font-size: 12px; }
+}
+@media (max-height: 520px) {
+  .repos, .sub { display: none; }
+}
